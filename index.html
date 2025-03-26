@@ -1,3 +1,4 @@
+<!--- Style 1 --->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,3 +51,48 @@
         </p>
 </body>
 </html>
+<!--- Style 2 --->
+<!---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File GH</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
+    <p align="center">
+        <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" width="100%" height="100%" />
+    </p>
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h1 class="text-2xl font-semibold mb-4">Upload file yang lebih kecil dari 4.5 MB</h1>
+        <form ref="uploadForm" id="uploadForm" action="/upload" method="post" encType="multipart/form-data">
+            <input type="file" name="file" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500 file:text-white hover:file:bg-indigo-700" />
+            <div class="flex justify-center">
+                <button type="submit" id="uploadButton" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                    Upload File
+                </button>
+                <div id="loadingIndicator" class="ml-2 hidden">
+                    <svg class="animate-spin h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const uploadButton = document.getElementById('uploadButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        uploadForm.addEventListener('submit', () => {
+            uploadButton.disabled = true;
+            loadingIndicator.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
+--->
