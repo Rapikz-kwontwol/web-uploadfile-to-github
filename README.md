@@ -7,7 +7,7 @@ Contoh:
 ```javascript
 const to = "ghp_aIAjuiswiNIsoiJaoa"
 const ken = "IUhiahOisaiajoalaljKha"
-const githubToken = `${to}${ken}`;'
+const githubToken = `${to}${ken}`;
 ```
 ---------
 # *EN*
