@@ -2,7 +2,8 @@
 ---------
 # Note:
 Apabila kalian ingin masang token githubnya di repo github kalian tapi gk bisa (token nya tiba2 kebanned mulu) akalin aja dengan cara membagi 2 atau lebih tokennya
-Contoh
+
+Contoh:
 ```javascript
 const to = "ghp_aIAjuiswiNIsoiJaoa"
 const ken = "IUhiahOisaiajoa"
