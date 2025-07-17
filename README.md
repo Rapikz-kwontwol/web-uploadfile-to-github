@@ -6,7 +6,7 @@ Apabila kalian ingin masang token githubnya di repo github kalian tapi gk bisa (
 Contoh:
 ```javascript
 const to = "ghp_aIAjuiswiNIsoiJaoa"
-const ken = "IUhiahOisaiajoa"
+const ken = "IUhiahOisaiajoalaljKha"
 const githubToken = `${to}${ken}`;'
 ```
 ---------
