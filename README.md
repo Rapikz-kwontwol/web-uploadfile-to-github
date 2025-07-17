@@ -1,7 +1,7 @@
 # web-uploadfile-to-github
 ---------
 # Note:
-Apabila kalian ingin masang token githubnya di repo github kalian tapi gk bisa (token nya tiba2 kebanned mulu) akalin aja dengan cara membagi 2 atau lebih tokennya
+Apabila kalian ingin masang token githubnya di repo github kalian tapi gk bisa (token nya tiba2 kebanned mulu/tiba2 hangus) akalin aja dengan cara membagi 2 atau lebih tokennya
 
 Contoh:
 ```javascript
