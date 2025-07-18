@@ -9,6 +9,15 @@ const to = "ghp_aIAjuiswiNIsoiJaoa"
 const ken = "IUhiahOisaiajoalaljKha"
 const githubToken = `${to}${ken}`;
 ```
+Disarankan:
+```javascript
+const a = 'g'
+const b = 'h'
+const c = 'p'
+const to = '_JoajaojOOshuaHUs' // Setelah ghp
+const ken = 'AiusihAIHiISAHUOWIHAz' // tengah2 token
+const githubToken = `${a}${b}${c}${to}${ken}`;
+```
 ---------
 # *EN*
 ### 📃 T&C
