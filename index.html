@@ -1,58 +1,3 @@
-<!--- Style 1 --->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File To GitHub</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
-</head>
-    <p align="center">
-      <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" width="30%" height="30%" />
-    </p>
-<body class="bg-gray-100 p-6">
-    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Upload File to GitHub</h1>
-        <form id="uploadForm" action="/upload" method="post" encType="multipart/form-data" class="space-y-4">
-            <div>
-                <label for="file" class="block text-gray-600 font-medium">Select a file</label>
-                <input type="file" name="file" id="file" class="mt-2 p-2 border border-gray-300 rounded-md w-full" />
-            </div>
-            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                Upload File
-            </button>
-            <!-- Loading spinner, hidden initially -->
-            <div id="loading" class="hidden text-center mt-4">
-                <svg role="status" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path d="M99 50.5C99 78.2 77.7 100 50 100C22.3 100 1 78.2 1 50.5C1 22.8 22.3 1 50 1C77.7 1 99 22.8 99 50.5ZM10 50.5C10 73.4 27.6 91.9 50 91.9C72.4 91.9 90 73.4 90 50.5C90 27.6 72.4 9.1 50 9.1C27.6 9.1 10 27.6 10 50.5ZM91 50.5C91 70.6 72.4 89.1 50 89.1C27.6 89.1 10 70.6 10 50.5C10 30.4 27.6 11.9 50 11.9C72.4 11.9 91 30.4 91 50.5Z" />
-                </svg>
-                <p class="text-gray-600 mt-2">Uploading...</p>
-            </div>
-        </form>
-    </div>
-
-    <script>
-        const form = document.getElementById('uploadForm');
-        const loading = document.getElementById('loading');
-
-        form.addEventListener('submit', function(event) {
-            // Show the loading spinner when the form is submitted
-            loading.classList.remove('hidden');
-        });
-    </script>
-    <p align="center">
-      <img src="https://raw.githubusercontent.com/upload-file-lab/fileupload/main/uploads/1744380557588.png" width="50%" height="50%" />
-    </p>
-    <p align="center">
-    <a href="https://github.com/Rapikz-kwontwol"><img title="Author"
-        src="https://img.shields.io/badge/GITHUB-gray.svg?style=for-the-badge&logo=github"
-        alt="GitHub"></a>
-        </p>
-</body>
-</html>
-<!--- Style 2 --->
-<!---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,21 +6,54 @@
     <title>Upload File GH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
+    <style>
+        /* Custom styles for a more modern look */
+        body {
+            background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .card-glow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 30px rgba(124, 58, 237, 0.6); /* Purple glow */
+            transition: all 0.3s ease-in-out;
+        }
+        .card-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 6px 8px -3px rgba(0, 0, 0, 0.08), 0 0 40px rgba(167, 139, 250, 0.8); /* Lighter purple on hover */
+        }
+    </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
-    <p align="center">
-        <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" width="100%" height="100%" />
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <p align="center" class="mb-8">
+        <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" class="rounded-lg shadow-lg max-w-full h-auto" style="max-width: 250px;" alt="Animated GIF">
     </p>
-    <div class="bg-white p-8 rounded shadow-md w-96">
-        <h1 class="text-2xl font-semibold mb-4">Upload file ke github</h1>
-        <form ref="uploadForm" id="uploadForm" action="/upload" method="post" encType="multipart/form-data">
-            <input type="file" name="file" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500 file:text-white hover:file:bg-indigo-700" />
-            <div class="flex justify-center">
-                <button type="submit" id="uploadButton" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md card-glow transform hover:scale-105 transition duration-300">
+        <h1 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Upload File ke github</h1>
+      <!---  <p class="text-center text-gray-600 mb-6 text-md">Ukuran file maksimal: <span class="font-semibold text-indigo-600">4.5 MB</span></p> --->
+
+        <form ref="uploadForm" id="uploadForm" action="/uploadfile" method="post" encType="multipart/form-data" class="space-y-6">
+            <label class="block">
+                <span class="sr-only">Choose file</span>
+                <input type="file" name="file" class="block w-full text-sm text-gray-700
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-indigo-600 file:text-white
+                    hover:file:bg-indigo-700
+                    cursor-pointer transition duration-200 ease-in-out
+                "/>
+            </label>
+            
+            <div class="flex justify-center items-center space-x-4">
+                <button type="submit" id="uploadButton" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700
+                    text-white font-bold py-3 px-8 rounded-full shadow-lg
+                    transform hover:scale-105 transition duration-300 ease-in-out
+                    focus:outline-none focus:ring-4 focus:ring-purple-300">
                     Upload File
                 </button>
-                <div id="loadingIndicator" class="ml-2 hidden">
-                    <svg class="animate-spin h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <div id="loadingIndicator" class="hidden">
+                    <svg class="animate-spin h-7 w-7 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -83,6 +61,21 @@
             </div>
         </form>
     </div>
+
+    <p align="center" class="mt-8 text-white text-lg font-medium">
+        Source code:
+    </p>
+    <p align="center" class="mt-2">
+        <a href="https://github.com/Rapikz-kwontwol/web-uploadfile-to-github" target="_blank" rel="noopener noreferrer">
+            <img title="Author"
+                src="https://img.shields.io/badge/GITHUB-gray.svg?style=for-the-badge&logo=github"
+                alt="GitHub Repository">
+        </a>
+    </p>
+    <center class="mt-8">
+        <audio autoplay="autoplay" controls="controls" src="https://files.catbox.moe/ar2c1c.mp3" class="rounded-lg shadow-md"></audio>
+    </center>
+
     <script>
         const uploadForm = document.getElementById('uploadForm');
         const uploadButton = document.getElementById('uploadButton');
@@ -90,17 +83,9 @@
 
         uploadForm.addEventListener('submit', () => {
             uploadButton.disabled = true;
+            uploadButton.classList.add('opacity-50', 'cursor-not-allowed'); // Add disabled styling
             loadingIndicator.classList.remove('hidden');
         });
     </script>
-<p align="center">
-      <img src="https://raw.githubusercontent.com/upload-file-lab/fileupload/main/uploads/1744380557588.png" width="50%" height="50%" />
-    </p>
-    <p align="center">
-    <a href="https://github.com/Rapikz-kwontwol/web-uploadfile-to-github"><img title="Author"
-        src="https://img.shields.io/badge/GITHUB-gray.svg?style=for-the-badge&logo=github"
-        alt="GitHub"></a>
-        </p>
 </body>
 </html>
---->
