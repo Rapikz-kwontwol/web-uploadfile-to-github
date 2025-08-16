@@ -67,6 +67,11 @@ app.post('/upload', async (req, res) => {
             transform: translateY(-5px);
             box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1), 0 6px 8px -3px rgba(0, 0, 0, 0.08), 0 0 40px rgba(167, 139, 250, 0.8); /* Lighter purple on hover */
         }
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
@@ -79,18 +84,20 @@ app.post('/upload', async (req, res) => {
             File Anda berhasil diunggah. Berikut adalah tautan URL langsungnya:
         </div>
         <div class="text-center mb-6 p-3 bg-gray-100 rounded-lg break-words shadow-inner">
-            <a id="rawUrlLink" href="${rawUrl}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-lg transition duration-200 ease-in-out">${rawUrl}</a>
+            <a id="rawUrlLink" href="${rawUrl}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-lg transition duration-200 ease-in-out">https://raw.githubusercontent.com/upload-file-lab/fileupload6/main/uploads/1755303030799.jpeg</a>
         </div>
-        <div class="text-center">
-            <button onclick="copyUrl()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700
-                text-white font-bold py-3 px-8 rounded-full shadow-lg
-                transform hover:scale-105 transition duration-300 ease-in-out
-                focus:outline-none focus:ring-4 focus:ring-purple-300">
+        <div class="flex justify-between items-center space-x-4">
+            <button onclick="copyUrl()" class="w-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-300">
                 Salin URL
             </button>
+            <a href="/" class="w-1/2 flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-gray-300">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                🔙 Back
+            </a>
         </div>
     </div>
-
     <script>
         function copyUrl() {
             const rawUrl = document.getElementById('rawUrlLink').href;
