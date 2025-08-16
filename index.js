@@ -84,7 +84,7 @@ app.post('/upload', async (req, res) => {
             File Anda berhasil diunggah. Berikut adalah tautan URL langsungnya:
         </div>
         <div class="text-center mb-6 p-3 bg-gray-100 rounded-lg break-words shadow-inner">
-            <a id="rawUrlLink" href="${rawUrl}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-lg transition duration-200 ease-in-out">https://raw.githubusercontent.com/upload-file-lab/fileupload6/main/uploads/1755303030799.jpeg</a>
+            <a id="rawUrlLink" href="${rawUrl}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-lg transition duration-200 ease-in-out">${rawUrl}</a>
         </div>
         <div class="flex justify-between items-center space-x-4">
             <button onclick="copyUrl()" class="w-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-300">
