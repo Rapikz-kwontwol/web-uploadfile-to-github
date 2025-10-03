@@ -1,9 +1,6 @@
 /*
-
-[+] Gunakan env untuk GitHub Token
-[+] Tambah validasi max 100 MB ( kalo run selain di vercel )
-[+] Penamaan file lebih aman ([spasi] -> [_])
-
+Kalo run di vps sih pake env
+Kalo vercel mending liat dokumentasi
 */
 
 const express = require('express');
