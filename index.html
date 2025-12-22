@@ -3,96 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File GH</title>
+    <title>Upload File</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/upload-file-lab/fileupload7/main/uploads/1766330286639.jpeg?format=png&name=900x900">
+    
+    <!-- Konfigurasi Tailwind untuk dark mode -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    
     <style>
-        body {
-            background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-            background-size: cover;
-            background-attachment: fixed;
+        /* Transisi halus untuk tema */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
+        
+        /* Pastikan body mengambil full height */
+        body, html {
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* Custom scrollbar untuk dark mode */
+        .dark-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .dark-scrollbar::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        .dark-scrollbar::-webkit-scrollbar-thumb {
+            background: #444444;
+            border-radius: 4px;
+        }
+        
+        .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555555;
+        }
+        
+        /* Custom scrollbar untuk light mode */
+        .light-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .light-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .light-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        .light-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Style untuk file preview */
+        .file-preview-image {
+            max-height: 200px;
+            object-fit: contain;
+        }
+        
+        /* Glow effect untuk card */
         .card-glow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                        0 4px 6px -2px rgba(0, 0, 0, 0.05),
-                        0 0 30px rgba(124, 58, 237, 0.6);
-            transition: all 0.3s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
         .card-glow:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1),
-                        0 6px 8px -3px rgba(0, 0, 0, 0.08),
-                        0 0 40px rgba(167, 139, 250, 0.8);
+        }
+        
+        .dark-card:hover {
+            box-shadow: 0 20px 30px rgba(255, 255, 255, 0.05);
+        }
+        
+        .light-card:hover {
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Fix untuk background body */
+        .dark-body {
+            background-color: #000000 !important;
+        }
+        
+        .light-body {
+            background-color: #f9fafb !important;
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <p align="center" class="mb-8">
-        <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif"
-             class="rounded-lg shadow-lg max-w-full h-auto"
-             style="max-width: 250px;"
-             alt="Animated GIF">
-    </p>
-
-    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md card-glow transform hover:scale-105 transition duration-300">
-        <h1 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Upload File ke GitHub</h1>
-
-        <form id="uploadForm" action="/upload" method="post" encType="multipart/form-data" class="space-y-6">
-            <label class="block">
-                <span class="sr-only">Choose file</span>
-                <input type="file" name="file" required
-                    class="block w-full text-sm text-gray-700
-                        file:mr-4 file:py-2 file:px-4
-                        file:rounded-full file:border-0
-                        file:text-sm file:font-semibold
-                        file:bg-indigo-600 file:text-white
-                        hover:file:bg-indigo-700
-                        cursor-pointer transition duration-200 ease-in-out
-                "/>
-            </label>
-            
-            <div class="flex justify-center items-center space-x-4">
-                <button type="submit" id="uploadButton"
-                    class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700
-                        text-white font-bold py-3 px-8 rounded-full shadow-lg
-                        transform hover:scale-105 transition duration-300 ease-in-out
-                        focus:outline-none focus:ring-4 focus:ring-purple-300">
-                    Upload File
-                </button>
-                <div id="loadingIndicator" class="hidden">
-                    <svg class="animate-spin h-7 w-7 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </div>
-            </div>
-        </form>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <!-- Tombol Toggle Dark/Light Mode -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" type="button" 
+            class="p-3 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white 
+                   hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 
+                   focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500
+                   shadow-lg border border-gray-200 dark:border-gray-700">
+            <!-- Ikon bulan (untuk dark mode) -->
+            <svg id="theme-toggle-dark-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <!-- Ikon matahari (untuk light mode) -->
+            <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+        </button>
     </div>
 
-    <p align="center" class="mt-8 text-white text-lg font-medium">
-        Source code:
-    </p>
-    <p align="center" class="mt-2">
-        <a href="https://github.com/iyayn-ajah/web-uploadfile-to-github" target="_blank" rel="noopener noreferrer">
-            <img title="Author"
-                src="https://img.shields.io/badge/GITHUB-gray.svg?style=for-the-badge&logo=github"
-                alt="GitHub Repository">
-        </a>
-    </p>
-    <center class="mt-8">
-        <audio autoplay controls src="https://files.catbox.moe/ar2c1c.mp3" class="rounded-lg shadow-md"></audio>
-    </center>
+    <div class="flex flex-col items-center justify-center min-h-screen p-4">
+        <div class="mb-8 text-center">
+            <img src="https://raw.githubusercontent.com/upload-file-lab/fileupload7/main/uploads/1766330547277.png" 
+                 class="rounded-lg shadow-lg mx-auto max-w-[250px] h-auto" 
+                 alt="Upload File Logo">
+        </div>
+
+        <div id="main-card"
+             class="w-full max-w-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 
+                    rounded-xl shadow-xl p-8 card-glow">
+            <h1 class="text-3xl font-extrabold text-center mb-6 text-gray-900 dark:text-white">Upload File</h1>     
+            <p class="text-center mb-6 text-gray-600 dark:text-gray-300">
+                Semua ukuran file diperbolehkan
+            </p>
+            
+            <form ref="uploadForm" id="uploadForm" action="/uploadfile" method="post" encType="multipart/form-data" class="space-y-6">
+                <!-- Custom File Input Area -->
+                <div id="file-drop-area" 
+                     class="border-2 border-dashed rounded-xl p-8 text-center cursor-pointer
+                            border-gray-300 dark:border-gray-600 
+                            bg-gray-50 dark:bg-gray-900
+                            hover:bg-gray-100 dark:hover:bg-gray-700
+                            transition duration-300">
+                    <div class="flex flex-col items-center justify-center">
+                        <svg class="w-12 h-12 mb-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p class="text-lg font-medium mb-2 text-gray-900 dark:text-white">Klik atau tarik file ke sini</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Format: Semua file</p>
+                    </div>
+                    <input type="file" name="file" id="fileInput" class="hidden" />
+                </div>
+                
+                <!-- File Preview Area -->
+                <div id="preview-area" class="hidden">
+                    <div id="preview-content" 
+                         class="border border-gray-200 dark:border-gray-600 rounded-xl p-4 bg-gray-50 dark:bg-gray-900">
+                        <!-- Preview akan ditampilkan di sini oleh JavaScript -->
+                    </div>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span id="file-name" class="font-medium text-gray-900 dark:text-white truncate max-w-xs"></span>
+                        <button type="button" id="remove-file" 
+                                class="px-3 py-1 rounded text-sm font-medium
+                                       bg-red-100 dark:bg-red-900/30 
+                                       text-red-700 dark:text-red-300
+                                       hover:bg-red-200 dark:hover:bg-red-800/50
+                                       transition duration-300">
+                            Hapus
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center items-center space-x-4">
+                    <button type="submit" id="uploadButton" 
+                            class="px-8 py-3 rounded-full font-bold shadow-lg
+                                   bg-gray-900 dark:bg-gray-700 
+                                   text-white
+                                   hover:bg-gray-800 dark:hover:bg-gray-600
+                                   disabled:opacity-50 disabled:cursor-not-allowed
+                                   transition duration-300
+                                   focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500
+                                   transform hover:scale-105">
+                        Upload File
+                    </button>
+                    <div id="loadingIndicator" class="hidden">
+                        <svg class="animate-spin h-7 w-7 text-gray-900 dark:text-white" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
-        const uploadForm = document.getElementById('uploadForm');
+        // Element references
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon'); // Ikon bulan
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon'); // Ikon matahari
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+        const fileDropArea = document.getElementById('file-drop-area');
+        const fileInput = document.getElementById('fileInput');
+        const previewArea = document.getElementById('preview-area');
+        const previewContent = document.getElementById('preview-content');
+        const fileNameSpan = document.getElementById('file-name');
+        const removeFileBtn = document.getElementById('remove-file');
         const uploadButton = document.getElementById('uploadButton');
+        const uploadForm = document.getElementById('uploadForm');
         const loadingIndicator = document.getElementById('loadingIndicator');
+        const mainCard = document.getElementById('main-card');
 
-        uploadForm.addEventListener('submit', () => {
+        // State
+        let selectedFile = null;
+
+        // Fungsi untuk mengatur tema
+        function setTheme(isDark) {
+            if (isDark) {
+                // Mode Gelap: tampilkan bulan 🌙
+                htmlElement.classList.add('dark');
+                bodyElement.classList.add('dark-body');
+                bodyElement.classList.remove('light-body');
+                localStorage.setItem('theme', 'dark');
+                
+                // Tampilkan ikon bulan, sembunyikan ikon matahari
+                themeToggleDarkIcon.classList.remove('hidden'); // Tampilkan bulan
+                themeToggleLightIcon.classList.add('hidden'); // Sembunyikan matahari
+                
+                mainCard.classList.add('dark-card');
+                mainCard.classList.remove('light-card');
+            } else {
+                // Mode Terang: tampilkan matahari ☀️
+                htmlElement.classList.remove('dark');
+                bodyElement.classList.remove('dark-body');
+                bodyElement.classList.add('light-body');
+                localStorage.setItem('theme', 'light');
+                
+                // Tampilkan ikon matahari, sembunyikan ikon bulan
+                themeToggleDarkIcon.classList.add('hidden'); // Sembunyikan bulan
+                themeToggleLightIcon.classList.remove('hidden'); // Tampilkan matahari
+                
+                mainCard.classList.add('light-card');
+                mainCard.classList.remove('dark-card');
+            }
+            
+            // Update scrollbar class
+            updateScrollbarClass();
+        }
+
+        // Fungsi untuk update scrollbar berdasarkan tema
+        function updateScrollbarClass() {
+            const isDark = htmlElement.classList.contains('dark');
+            if (isDark) {
+                bodyElement.classList.remove('light-scrollbar');
+                bodyElement.classList.add('dark-scrollbar');
+            } else {
+                bodyElement.classList.remove('dark-scrollbar');
+                bodyElement.classList.add('light-scrollbar');
+            }
+        }
+
+        // Cek tema yang disimpan atau preferensi sistem
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Jika sudah ada tema yang disimpan, gunakan itu
+            if (savedTheme === 'dark') {
+                setTheme(true);
+            } else if (savedTheme === 'light') {
+                setTheme(false);
+            } else {
+                // Jika tidak ada yang disimpan, ikuti preferensi sistem
+                if (systemPrefersDark) {
+                    setTheme(true);
+                } else {
+                    setTheme(false);
+                }
+            }
+        }
+
+        // Toggle tema
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = htmlElement.classList.contains('dark');
+            setTheme(!isDark);
+        });
+
+        // Fungsi untuk menampilkan preview file
+        function showFilePreview(file) {
+            selectedFile = file;
+            previewArea.classList.remove('hidden');
+            previewArea.classList.add('fade-in');
+            
+            // Tampilkan nama file
+            fileNameSpan.textContent = file.name;
+            
+            // Reset preview content
+            previewContent.innerHTML = '';
+            
+            // Tampilkan preview berdasarkan tipe file
+            if (file.type.startsWith('image/')) {
+                // Preview gambar
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'file-preview-image rounded-lg shadow-md w-full';
+                    img.alt = 'Preview gambar';
+                    previewContent.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+                // Preview video
+                const video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+                video.controls = true;
+                video.className = 'file-preview-image rounded-lg shadow-md w-full';
+                previewContent.appendChild(video);
+            } else if (file.type === 'application/pdf') {
+                // Preview PDF
+                const pdfIcon = document.createElement('div');
+                pdfIcon.className = 'text-center py-4';
+                pdfIcon.innerHTML = `
+                    <div class="text-5xl mb-2">📄</div>
+                    <p class="text-lg font-medium text-gray-900 dark:text-white">PDF Document</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">${(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                `;
+                previewContent.appendChild(pdfIcon);
+            } else {
+                // Preview file umum
+                const fileIcon = document.createElement('div');
+                fileIcon.className = 'text-center py-4';
+                fileIcon.innerHTML = `
+                    <div class="text-5xl mb-2">📁</div>
+                    <p class="text-lg font-medium text-gray-900 dark:text-white">${file.type || 'Unknown File'}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">${(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                `;
+                previewContent.appendChild(fileIcon);
+            }
+            
+            // Enable tombol upload
+            uploadButton.disabled = false;
+        }
+
+        // Event listener untuk area drop file
+        fileDropArea.addEventListener('click', () => fileInput.click());
+        
+        fileDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileDropArea.classList.add('bg-gray-200', 'dark:bg-gray-700');
+        });
+        
+        fileDropArea.addEventListener('dragleave', () => {
+            fileDropArea.classList.remove('bg-gray-200', 'dark:bg-gray-700');
+        });
+        
+        fileDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileDropArea.classList.remove('bg-gray-200', 'dark:bg-gray-700');
+            
+            if (e.dataTransfer.files.length) {
+                const file = e.dataTransfer.files[0];
+                // Tidak ada validasi ukuran file
+                fileInput.files = e.dataTransfer.files;
+                showFilePreview(file);
+            }
+        });
+
+        // Event listener untuk input file
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                const file = e.target.files[0];
+                // Tidak ada validasi ukuran file
+                showFilePreview(file);
+            }
+        });
+
+        // Event listener untuk tombol hapus file
+        removeFileBtn.addEventListener('click', () => {
+            selectedFile = null;
+            fileInput.value = '';
+            previewArea.classList.add('hidden');
+            previewArea.classList.remove('fade-in');
+            
+            // Disable tombol upload
             uploadButton.disabled = true;
-            uploadButton.classList.add('opacity-50', 'cursor-not-allowed');
+        });
+
+        // Validasi sebelum upload
+        uploadForm.addEventListener('submit', (e) => {
+            if (!selectedFile) {
+                e.preventDefault();
+                alert('Pilih file terlebih dahulu!');
+                return;
+            }
+            
+            // Tampilkan loading
+            uploadButton.disabled = true;
             loadingIndicator.classList.remove('hidden');
         });
+
+        // Inisialisasi
+        function init() {
+            initTheme();
+            uploadButton.disabled = true;
+        }
+
+        // Jalankan inisialisasi
+        init();
+        
+        // Juga atur tema saat halaman selesai load
+        document.addEventListener('DOMContentLoaded', initTheme);
     </script>
 </body>
 </html>
