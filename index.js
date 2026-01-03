@@ -1,3 +1,8 @@
+/*
+Kalo run di vps sih pake env
+Kalo vercel mending liat dokumentasi
+*/
+
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const axios = require('axios');
@@ -6,6 +11,7 @@ const mime = require('mime-types');
 const https = require('https');
 const http = require('http');
 const crypto = require('crypto');
+const path = require('path'); // <-- ditambahkan
 
 const app = express();
 const port = process.env.PORT || 3000; // HTTP fallback port
@@ -110,12 +116,25 @@ app.post('/uploadfile', async (req, res) => {
   }
 
   let uploadedFile = req.files.file;
-  let mimeType = mime.lookup(uploadedFile.name) || 'application/octet-stream';
-  let extension = mime.extension(mimeType) || 'bin';
+
+  // Ambil ekstensi asli dari nama file jika ada (mis. ".mp3")
+  const originalName = uploadedFile.name || 'file';
+  const origExt = path.extname(originalName); // termasuk titik, mis. ".mp3"
+
+  // Jika ada ekstensi asli, gunakan itu; kalau nggak, fallback ke mime-type
+  let extension;
+  if (origExt) {
+    extension = origExt.replace(/^\./, ''); // tanpa titik
+  } else {
+    // fallback gunakan mimetype dari upload atau dari lookup nama
+    const mimeType = uploadedFile.mimetype || mime.lookup(originalName) || 'application/octet-stream';
+    extension = mime.extension(mimeType) || 'bin';
+  }
 
   // Generate short mixed ID instead of timestamp numeric ID
   let id = generateId(6); // contoh: "aZ3k9B"
-  let fileName = `${id}.${extension}`;
+  // Jika origExt ada pakai origExt (dengan titik), jika tidak pakai .extension
+  let fileName = origExt ? `${id}${origExt}` : `${id}.${extension}`;
   // Store in repo under uploads/, but public URL will be /files/<fileName> (no uploads/)
   let gitPath = `uploads/${fileName}`;
   let base64Content = Buffer.from(uploadedFile.data).toString('base64');
